@@ -1,5 +1,6 @@
 from api.user.models import User
 from rest_framework import serializers
+from .models import ApiKeyModel, AutoBalancerModel
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -9,3 +10,18 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ["id", "username", "email", "date"]
         read_only_field = ["id"]
+
+class ApiKeySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ApiKeyModel
+        fields = '__all__'
+
+class AutoBalancerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AutoBalancerModel
+        fields = '__all__'
+
+
+

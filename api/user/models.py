@@ -45,7 +45,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(db_index=True, unique=True)
     is_active = models.BooleanField(default=True)
     date = models.DateTimeField(auto_now_add=True)
-
+    is_staff = models.BooleanField(
+        ('staff status'),
+        default=False,
+        help_text=('Designates whether the user can log into this admin site.'),
+        null=True,
+        blank=True
+    )
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 
@@ -53,3 +59,25 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f"{self.email}"
+
+
+class ApiKeyModel(models.Model):
+    key = models.CharField(max_length=1000)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class AutoBalancerModel(models.Model):
+    loadbalancer_name = models.TextField()
+    loadbalancer_tag = models.CharField(max_length=1000)
+    minimun_droplets = models.IntegerField()
+    maximum_droplets = models.IntegerField()
+    droplet_tag = models.CharField(max_length=1000)
+    threshold_CPU = models.FloatField()
+    threshold_Load1 = models.FloatField(blank=True, null=True)
+    threshold_load5 = models.FloatField(blank=True, null=True)
+    threshold_load15 = models.FloatField(blank=True, null=True)
+    is_runing = models.BooleanField(default=False, blank=True, null=True)
+    created_at = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+
+
+
