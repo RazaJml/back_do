@@ -65,8 +65,11 @@ class ApiKeyModel(models.Model):
     key = models.CharField(max_length=1000)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.key
 
 class AutoBalancerModel(models.Model):
+    key = models.ForeignKey(ApiKeyModel, on_delete=models.CASCADE, blank=True, null=True)
     loadbalancer_name = models.TextField()
     loadbalancer_tag = models.CharField(max_length=1000)
     minimun_droplets = models.IntegerField()
@@ -79,5 +82,8 @@ class AutoBalancerModel(models.Model):
     is_runing = models.BooleanField(default=False, blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True, auto_now_add=True)
 
+    
+    def __str__(self):
+        return self.loadbalancer_name
 
 

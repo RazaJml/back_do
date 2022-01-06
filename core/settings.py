@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "api",
     "api.user",
     "api.authentication",
+    "django_object_actions"
 ]
 
 MIDDLEWARE = [

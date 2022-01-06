@@ -1,7 +1,6 @@
 import requests
 import datetime
-import schedule
-import time
+
 
 def AutoBalancerMainFun(
     api_token, 
@@ -10,7 +9,7 @@ def AutoBalancerMainFun(
     cpu, load1, load5, load15, min_drop, max_drop
     ):
 
-    API_TOKEN = "e93c9340e7de74d3eaf9b5b0c003d08c6fc810829dff1f1e149c4f4c7a69b122"
+    API_TOKEN = api_token
     DO_API_URLS = {
         "droplets": "https://api.digitalocean.com/v2/droplets",
         "loadbalancers": "https://api.digitalocean.com/v2/load_balancers"
@@ -42,9 +41,6 @@ def AutoBalancerMainFun(
     # HELPERS
     # ##########################################################
 
-
-    def printTime():
-        print("Time --> ", datetime.datetime.now())
 
     def getActiveLBDropletIDs():
         res = requests.get(DO_API_URLS['loadbalancers'], headers={
@@ -267,11 +263,6 @@ def AutoBalancerMainFun(
 
     autoBalancer()
 
-    schedule.every(5).seconds.do(printTime)
-    schedule.every(1).minutes.do(autoBalancer)
-
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    
 
 
